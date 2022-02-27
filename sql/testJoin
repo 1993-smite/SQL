@@ -1,0 +1,18 @@
+/*EXPLAIN ANALYSE*/
+select univ_name, l.surname, l.name, s.subj_name, st.surname, st.name, em.subj_id, em.student_id, em.mark
+    from university u
+inner join lecturer l
+    on u.univ_id = l.univ_id
+    and rating = (select max(rating) from university)
+inner join student st
+    on st.univ_id = l.univ_id
+        and st.student_id = 4398
+inner join subj_lect sl
+    on l.lecturer_id = sl.lecturer_id
+inner join subject s
+    on sl.subj_id = s.subj_id
+inner join exam_marks em
+    on s.subj_id = em.subj_id
+           and em.student_id = st.student_id
+/*group by univ_name,st.student_id*/
+-- group by univ_name,l.lecturer_id,st.student_id, s.subj_id, s.semester, em.mark
